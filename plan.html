@@ -262,8 +262,8 @@
     <tr class="warn"><td>Luxury Interior Designers - 01.04.26</td><td>1,925</td><td>54%</td><td>1%</td><td>0.3%</td><td>1%</td><td>1%</td><td>Regression from 12.05 version</td></tr>
     <tr class="danger"><td>Luxury Hospitality Executives</td><td>1,434</td><td>67%</td><td>2%</td><td>0.1%</td><td><span class="accent">4%</span></td><td>1%</td><td><span class="badge badge-red">Kill</span> -- brochure copy, 1 interested of 1,434</td></tr>
     <tr class="danger"><td>Interior Designer Outreach</td><td>1,936</td><td>56%</td><td>1%</td><td>0%</td><td>0%</td><td>0%</td><td><span class="badge badge-red">Kill</span> -- zero interested, zero personalization</td></tr>
-    <tr class="danger"><td>Golf Club Management</td><td>172</td><td>48%</td><td>6%</td><td>0%</td><td><span class="accent">5%</span></td><td>0%</td><td><span class="badge badge-red">Kill</span> -- 0 interested, bounce issues</td></tr>
-    <tr class="danger"><td>Copy of Country Clubs (1)</td><td>208</td><td>61%</td><td>4%</td><td>0%</td><td><span class="accent">7%</span></td><td>1%</td><td><span class="badge badge-red">Kill</span> -- 0 interested, high bounce</td></tr>
+    <tr class="warn"><td>Golf Club Management</td><td>172</td><td>48%</td><td>6%</td><td>0%</td><td><span class="accent">5%</span></td><td>0%</td><td><span class="badge badge-yellow">Rebuild</span> -- CMAA success validates market, fix data quality + copy</td></tr>
+    <tr class="warn"><td>Copy of Country Clubs (1)</td><td>208</td><td>61%</td><td>4%</td><td>0%</td><td><span class="accent">7%</span></td><td>1%</td><td><span class="badge badge-yellow">Rebuild</span> -- consolidate with golf, fix bounce issues</td></tr>
     <tr class="danger"><td>Boutique Hotels</td><td>36</td><td>41%</td><td>0%</td><td>0%</td><td><span class="accent">11%</span></td><td>0%</td><td><span class="badge badge-red">Kill</span> -- 0 replies, 11% bounce</td></tr>
     <tr><td>NJ Resort Outreach</td><td>16</td><td>33%</td><td>7%</td><td>0%</td><td><span class="accent">6%</span></td><td>0%</td><td>Too small, poor data quality</td></tr>
   </tbody>
@@ -289,7 +289,7 @@
     <tr><td>Wineries</td><td>3,200</td><td>67%</td><td>14.7%</td><td>Moderate (high reply but many negative)</td><td><span class="badge badge-green">Keep -- expand</span></td></tr>
     <tr><td>Hospitality</td><td>6,080</td><td>64%</td><td>2.7%</td><td>Low (1 meeting from 6,080 contacts)</td><td><span class="badge badge-red">Rebuild entirely</span></td></tr>
     <tr><td>Retirement Communities</td><td>276</td><td>76%</td><td>6%</td><td>Low-Moderate (3 interested)</td><td><span class="badge badge-yellow">Test further</span></td></tr>
-    <tr><td>Golf/Country Clubs</td><td>435</td><td>52%</td><td>4.7%</td><td>None (0 interested)</td><td><span class="badge badge-yellow">Pause</span></td></tr>
+    <tr><td>Golf/Country Clubs</td><td>435</td><td>52%</td><td>4.7%</td><td>CMAA success validates market</td><td><span class="badge badge-green">Rebuild -- high priority</span></td></tr>
     <tr><td>Custom Home Builders</td><td>208</td><td>50%</td><td>7%</td><td>None (1 interested, 14% bounce)</td><td><span class="badge badge-red">Kill</span></td></tr>
     <tr><td>Resorts</td><td>80</td><td>42%</td><td>3%</td><td>Minimal (1 interested)</td><td><span class="badge badge-yellow">Rebuild with better data</span></td></tr>
     <tr><td>Boutique Hotels</td><td>36</td><td>41%</td><td>0%</td><td>None</td><td><span class="badge badge-yellow">Rebuild with better data</span></td></tr>
@@ -526,6 +526,33 @@ Kevin</div>
   </div>
 </details>
 
+<details open>
+  <summary>Golf &amp; Country Clubs (Rebuild -- High Priority) -- 435 contacts, CMAA validated</summary>
+  <div class="detail-body">
+    <div class="callout callout-success">CMAA was a big success and validates this as a strong market. The previous sequences had 0 interested contacts, but the problem was copy quality and data quality (5-7% bounce), not the vertical itself.</div>
+    <h4>Rebuild Approach</h4>
+    <ul style="margin:8px 0 16px 20px">
+      <li>Consolidate all golf/country club sequences into a single "Golf &amp; Country Clubs" sequence</li>
+      <li>Lead with <strong>member experience</strong> and outdoor dining/socializing angle -- club members expect premium amenities</li>
+      <li>Reference CMAA connection and success for credibility and social proof</li>
+      <li>Position heated seating as a <strong>seasonal revenue extender</strong> for outdoor dining, poolside, and event spaces</li>
+      <li>Clean the email list aggressively -- current 5-7% bounce rate must be under 2% before sending</li>
+      <li>Target GMs, F&amp;B directors, and membership directors</li>
+      <li>CTA: offer a property-specific walkthrough or invite to see a club installation</li>
+    </ul>
+    <h4>Step 1 Template Direction</h4>
+    <div class="email-block">Hi {{first_name}},
+
+[Reference to their club or a recent event/renovation]. We just came back from CMAA -- the response to heated outdoor furniture was incredible.
+
+Clubs like yours are extending patio and poolside seasons by 3-4 months with our Solerno Collection -- no propane heaters, no wires, just warm teak seating members don't want to leave.
+
+Worth 15 minutes to see if it fits {{company_name}}?
+
+Kevin</div>
+  </div>
+</details>
+
 <details>
   <summary>Retirement Communities (Test Further) -- 276 contacts, 76% open rate</summary>
   <div class="detail-body">
@@ -560,13 +587,13 @@ Kevin</div>
   <tbody>
     <tr class="danger"><td>Custom Home Builders</td><td>14% bounce, 4% spam, 1 interested from 208 contacts</td><td><span class="badge badge-red">Kill</span> Bad data quality.</td></tr>
     <tr class="danger"><td>Boutique Hotels</td><td>11% bounce, 0 replies from 36 contacts</td><td><span class="badge badge-red">Kill</span> Rebuild with verified emails.</td></tr>
-    <tr class="warn"><td>Golf Club Management</td><td>0 interested from 172 contacts, 5% bounce</td><td><span class="badge badge-yellow">Pause</span> Rethink angle -- golf clubs may not be viable.</td></tr>
-    <tr class="warn"><td>Copy of Country Clubs (1)</td><td>0 interested from 208 contacts, 7% bounce</td><td><span class="badge badge-yellow">Pause</span> Merge with golf if restarting.</td></tr>
+    <tr><td>Golf Club Management</td><td>0 interested from 172 contacts, 5% bounce</td><td><span class="badge badge-green">Rebuild</span> CMAA validated the market -- problem was copy + data quality, not the vertical. Consolidate into "Golf &amp; Country Clubs."</td></tr>
+    <tr><td>Copy of Country Clubs (1)</td><td>0 interested from 208 contacts, 7% bounce</td><td><span class="badge badge-green">Merge</span> into rebuilt Golf &amp; Country Clubs sequence. Clean email list.</td></tr>
     <tr class="danger"><td>Interior Designer Outreach</td><td>0 interested from 1,936 contacts, 1% reply</td><td><span class="badge badge-red">Kill</span> Replace with AI-generated sequences.</td></tr>
     <tr class="danger"><td>Luxury Hospitality Executives</td><td>1 interested from 1,434 contacts, brochure copy</td><td><span class="badge badge-red">Kill</span> Rebuild as sub-segmented approach.</td></tr>
-    <tr><td>Copy of Copy of Golf Club Mgmt</td><td>Never sent (draft)</td><td><span class="badge badge-gray">Delete</span></td></tr>
+    <tr><td>Copy of Copy of Golf Club Mgmt</td><td>Never sent (draft)</td><td><span class="badge badge-gray">Delete</span> Replace with rebuilt Golf &amp; Country Clubs.</td></tr>
     <tr><td>Copy of Designer Campaign - 05.05</td><td>Never sent (draft)</td><td><span class="badge badge-gray">Delete</span></td></tr>
-    <tr><td>Copy of Country Clubs (2)</td><td>Never sent (draft)</td><td><span class="badge badge-gray">Delete</span></td></tr>
+    <tr><td>Copy of Country Clubs (2)</td><td>Never sent (draft)</td><td><span class="badge badge-gray">Delete</span> Replace with rebuilt Golf &amp; Country Clubs.</td></tr>
   </tbody>
 </table>
 </div>
@@ -1147,6 +1174,7 @@ Prefer angles with higher positive_reply_rate when the prospect fits.</div>
   <tbody>
     <tr><td>Launch "Designer - Portfolio Personalized" sequence (AI-generated, tier 1)</td><td>Test AI quality vs. Amplemarket templates</td></tr>
     <tr><td>Launch "Wineries Expanded" (include breweries, cideries)</td><td>Expand highest-converting vertical</td></tr>
+    <tr><td>Launch "Golf &amp; Country Clubs" rebuilt sequence (CMAA-validated)</td><td>High-priority vertical, consolidate 3 old sequences with clean data + new copy</td></tr>
     <tr><td>Launch "Luxury Hotels &amp; Resorts" rebuilt sequence</td><td>Fix the 1-meeting-from-6,080 failure</td></tr>
     <tr><td>Launch "Checking In" re-engagement for Circle Back contacts</td><td>Harvest warm leads already in pipeline</td></tr>
     <tr><td>Launch seasonal "Winter is Coming" campaign (for Oct-Nov)</td><td>Time-triggered high-urgency outreach</td></tr>
