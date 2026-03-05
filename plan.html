@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Outmore Living - Sequence Improvement Plan</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;background:#fcf9f5;color:#373534;line-height:1.6;padding:0}
+  .container{max-width:1100px;margin:0 auto;padding:24px 32px 80px}
+  h1{font-size:2rem;font-weight:400;margin-bottom:4px;letter-spacing:-0.02em}
+  h2{font-size:1.5rem;font-weight:400;margin:48px 0 16px;padding-bottom:8px;border-bottom:2px solid #e8e4de;letter-spacing:-0.01em}
+  h3{font-size:1.1rem;font-weight:500;margin:24px 0 8px}
+  h4{font-size:0.95rem;font-weight:600;margin:16px 0 6px}
+  p{margin:8px 0}
+  .subtitle{color:#7a7572;font-size:1rem;margin-bottom:32px}
+  .date{color:#9a9694;font-size:0.85rem;margin-bottom:24px}
+  .accent{color:#F25431}
+  .green{color:#16a34a}
+  .yellow{color:#ca8a04}
+  .red{color:#dc2626}
+  .muted{color:#7a7572}
+
+  /* Nav */
+  .nav{display:flex;gap:0;border-bottom:1px solid #e8e4de;margin-bottom:0}
+  .nav a{display:block;padding:12px 20px;font-size:0.85rem;font-weight:500;color:#7a7572;text-decoration:none;border-bottom:2px solid transparent;transition:color 0.15s,border-color 0.15s}
+  .nav a:hover{color:#373534}
+  .nav a.active{color:#F25431;border-bottom-color:#F25431}
+
+  /* Stat cards */
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin:24px 0}
+  .stat-card{background:#fff;border:1px solid #e8e4de;border-radius:12px;padding:20px;text-align:center}
+  .stat-card .number{font-size:2rem;font-weight:300;letter-spacing:-0.02em}
+  .stat-card .label{font-size:0.8rem;color:#7a7572;text-transform:uppercase;letter-spacing:0.05em;margin-top:4px}
+  .stat-card.alert{border-color:#F25431;background:#fff8f6}
+  .stat-card.alert .number{color:#F25431}
+  .stat-card.success{border-color:#16a34a;background:#f6fef6}
+  .stat-card.success .number{color:#16a34a}
+
+  /* Tables */
+  .table-wrap{overflow-x:auto;margin:16px 0;border-radius:10px;border:1px solid #e8e4de}
+  table{width:100%;border-collapse:collapse;font-size:0.85rem}
+  th{background:#f3efe8;text-align:left;padding:10px 12px;font-weight:600;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.04em;color:#7a7572;position:sticky;top:0;white-space:nowrap;user-select:none}
+  td{padding:10px 12px;border-top:1px solid #eee;vertical-align:top}
+  tr:hover td{background:#faf7f2}
+  tr.warn td{background:#fef9ee}
+  tr.danger td{background:#fef2f2}
+  .badge{display:inline-block;padding:2px 8px;border-radius:99px;font-size:0.75rem;font-weight:500}
+  .badge-green{background:#dcfce7;color:#16a34a}
+  .badge-yellow{background:#fef9c3;color:#a16207}
+  .badge-red{background:#fee2e2;color:#dc2626}
+  .badge-gray{background:#f3f4f6;color:#6b7280}
+  .badge-active{background:#dbeafe;color:#2563eb}
+  .badge-blue{background:#dbeafe;color:#2563eb}
+
+  /* Comparison cards */
+  .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:16px 0}
+  .compare-card{background:#fff;border:1px solid #e8e4de;border-radius:12px;padding:24px}
+  .compare-card h3{margin-top:0;font-size:1.15rem}
+  .compare-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f3efe8;font-size:0.9rem}
+  .compare-row:last-child{border-bottom:none}
+  .compare-row .val{font-weight:500}
+
+  /* Collapsible */
+  details{margin:12px 0;background:#fff;border:1px solid #e8e4de;border-radius:10px}
+  details[open]{border-color:#d4cfc7}
+  summary{padding:12px 16px;cursor:pointer;font-weight:500;font-size:0.9rem;list-style:none;display:flex;align-items:center;gap:8px}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:'';display:inline-block;width:0;height:0;border-left:5px solid #7a7572;border-top:4px solid transparent;border-bottom:4px solid transparent;transition:transform 0.15s}
+  details[open] summary::before{transform:rotate(90deg)}
+  .detail-body{padding:0 16px 16px;font-size:0.85rem;line-height:1.7}
+  .email-block{background:#f8f5ef;border-radius:8px;padding:14px 16px;margin:8px 0;font-family:'SF Mono','Fira Code','Cascadia Code',monospace;font-size:0.8rem;white-space:pre-wrap;line-height:1.6;border-left:3px solid #d4cfc7;color:#4a4745}
+
+  /* Bar charts (CSS) */
+  .bar-chart{margin:16px 0}
+  .bar-row{display:flex;align-items:center;margin:6px 0;gap:10px}
+  .bar-label{width:90px;font-size:0.8rem;text-align:right;flex-shrink:0;color:#7a7572}
+  .bar-track{flex:1;height:28px;background:#f3efe8;border-radius:6px;position:relative;overflow:hidden}
+  .bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:8px;font-size:0.75rem;font-weight:500;color:#fff;min-width:fit-content;transition:width 0.3s}
+  .bar-value{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:0.75rem;color:#7a7572}
+
+  /* Stacked bar */
+  .stacked-bar-container{margin:20px 0}
+  .stacked-bar{display:flex;height:40px;border-radius:8px;overflow:hidden;margin:8px 0}
+  .stacked-segment{display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:500;color:#fff;min-width:1px;transition:width 0.3s}
+  .stacked-legend{display:flex;flex-wrap:wrap;gap:16px;margin:10px 0;font-size:0.8rem}
+  .legend-item{display:flex;align-items:center;gap:5px}
+  .legend-dot{width:10px;height:10px;border-radius:3px}
+
+  /* Subject analysis */
+  .subject-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid #f3efe8}
+  .subject-text{flex:1;font-size:0.85rem}
+  .subject-rate{font-weight:600;font-size:0.85rem;width:50px;text-align:right;flex-shrink:0}
+
+  /* Recommendations */
+  .rec-list{counter-reset:rec;list-style:none;padding:0}
+  .rec-list li{counter-increment:rec;padding:16px 16px 16px 56px;position:relative;background:#fff;border:1px solid #e8e4de;border-radius:10px;margin:10px 0;font-size:0.9rem}
+  .rec-list li::before{content:counter(rec);position:absolute;left:16px;top:16px;width:28px;height:28px;background:#F25431;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:600}
+
+  /* Side by side emails */
+  .side-by-side{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+  .side-col h4{font-size:0.85rem;margin-bottom:8px}
+
+  /* Callout */
+  .callout{background:#fff;border-left:3px solid #F25431;padding:14px 18px;margin:16px 0;border-radius:0 8px 8px 0;font-size:0.9rem}
+  .callout-info{border-left-color:#2563eb;background:#f8faff}
+  .callout-warn{border-left-color:#ca8a04;background:#fffdf4}
+  .callout-success{border-left-color:#16a34a;background:#f6fef6}
+
+  /* Finding cards */
+  .finding{background:#fff;border:1px solid #e8e4de;border-radius:10px;padding:18px;margin:12px 0}
+  .finding-title{font-weight:600;font-size:0.9rem;margin-bottom:6px}
+  .finding-body{font-size:0.85rem;color:#555}
+  .quote{border-left:3px solid #F25431;padding-left:12px;margin:8px 0;font-style:italic;color:#666;font-size:0.85rem}
+
+  /* TOC */
+  .toc{background:#fff;border:1px solid #e8e4de;border-radius:12px;padding:20px 24px;margin:24px 0}
+  .toc-title{font-weight:600;font-size:0.9rem;margin-bottom:10px;color:#7a7572;text-transform:uppercase;letter-spacing:0.04em;font-size:0.75rem}
+  .toc ol{margin:0;padding-left:20px}
+  .toc li{padding:4px 0;font-size:0.9rem}
+  .toc a{color:#373534;text-decoration:none;border-bottom:1px solid #e8e4de;transition:border-color 0.15s,color 0.15s}
+  .toc a:hover{color:#F25431;border-bottom-color:#F25431}
+
+  /* Phase cards */
+  .phase-header{display:flex;align-items:center;gap:10px;margin:28px 0 8px}
+  .phase-badge{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;background:#F25431;color:#fff;border-radius:50%;font-size:0.85rem;font-weight:600;flex-shrink:0}
+  .phase-title{font-size:1.1rem;font-weight:500}
+  .phase-timing{color:#7a7572;font-size:0.85rem;margin-left:auto}
+
+  /* Metric comparison */
+  .metric-compare{display:flex;align-items:center;gap:8px;font-size:0.85rem;margin:4px 0}
+  .metric-current{color:#dc2626;text-decoration:line-through;opacity:0.6}
+  .metric-arrow{color:#7a7572}
+  .metric-target{color:#16a34a;font-weight:600}
+
+  @media(max-width:768px){
+    .container{padding:16px}
+    .compare-grid,.side-by-side{grid-template-columns:1fr}
+    .stat-grid{grid-template-columns:repeat(2,1fr)}
+    h1{font-size:1.5rem}
+    h2{font-size:1.2rem}
+    .nav{overflow-x:auto}
+    .nav a{white-space:nowrap;padding:12px 16px}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div style="max-width:1100px;margin:0 auto;padding:0 32px">
+  <nav class="nav">
+    <a href="/">Performance Report</a>
+    <a href="/plan" class="active">Improvement Plan</a>
+  </nav>
+</div>
+
+<div class="container">
+
+<!-- HEADER -->
+<div style="border-bottom:1px solid #e8e4de;padding-bottom:20px;margin-bottom:32px">
+  <p class="date">Internal Strategy Document &middot; March 2026</p>
+  <h1>Sequence Improvement Plan</h1>
+  <p class="subtitle">Comprehensive plan for improving Outmore Living's B2B cold outreach sequences</p>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc">
+  <div class="toc-title">Contents</div>
+  <ol>
+    <li><a href="#section-1">Performance Analysis of Current Sequences</a></li>
+    <li><a href="#section-2">Improving Existing Sequences</a></li>
+    <li><a href="#section-3">New Sequences to Add / Sequences to Drop or Change</a></li>
+    <li><a href="#section-4">RLHF Feedback Loop Integration</a></li>
+    <li><a href="#section-5">Implementation Roadmap</a></li>
+  </ol>
+</div>
+
+<!-- ============================================ -->
+<!-- 1. PERFORMANCE ANALYSIS -->
+<!-- ============================================ -->
+<h2 id="section-1">1. Performance Analysis of Current Sequences</h2>
+
+<h3>Overall Program Health</h3>
+
+<div class="callout" style="font-size:1.05rem;font-weight:500">
+  Opens are strong (60%+), so subject lines and deliverability are mostly working. The funnel collapses at the copy level -- 76% of all 395 replies were negative. The problem is not reach; it is message quality and targeting precision.
+</div>
+
+<div class="stat-grid">
+  <div class="stat-card">
+    <div class="number">11,768</div>
+    <div class="label">Active Contacts</div>
+  </div>
+  <div class="stat-card">
+    <div class="number">28,400</div>
+    <div class="label">All-Time Contacts</div>
+  </div>
+  <div class="stat-card">
+    <div class="number">60.3%</div>
+    <div class="label">Overall Open Rate</div>
+  </div>
+  <div class="stat-card">
+    <div class="number">3.4%</div>
+    <div class="label">Active Reply Rate</div>
+  </div>
+  <div class="stat-card alert">
+    <div class="number">0.8%</div>
+    <div class="label">Interested Rate</div>
+  </div>
+  <div class="stat-card alert">
+    <div class="number">1</div>
+    <div class="label">Meeting Booked</div>
+  </div>
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Value</th>
+      <th>Benchmark</th>
+      <th>Assessment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Total Contacts Reached</td><td>11,768 (active) / 28,400 (all-time)</td><td>--</td><td>High volume</td></tr>
+    <tr><td>Overall Open Rate</td><td>60.3%</td><td>40-50%</td><td><span class="badge badge-green">Above average</span></td></tr>
+    <tr><td>Overall Reply Rate</td><td>3.4% (active) / 6.9% (all-time)</td><td>2-5%</td><td><span class="badge badge-yellow">Within range but misleading</span></td></tr>
+    <tr><td>Interested Rate</td><td>0.8% (94 of 11,768)</td><td>1-3%</td><td><span class="badge badge-red">Below benchmark</span></td></tr>
+    <tr><td>Bounce Rate</td><td>2.7% overall, up to 14% per sequence</td><td>&lt;2%</td><td><span class="badge badge-red">Several critically high</span></td></tr>
+    <tr><td>Meetings Booked</td><td>1 (from all data)</td><td>--</td><td><span class="badge badge-red">Critically low</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Per-Sequence Performance (Active, Ranked by Interest Rate)</h3>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Sequence</th>
+      <th>Contacts</th>
+      <th>Open %</th>
+      <th>Reply %</th>
+      <th>Interest %</th>
+      <th>Bounce %</th>
+      <th>Spam %</th>
+      <th>Verdict</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>RID - Georgia</td><td>277</td><td>75%</td><td>21%</td><td><span class="badge badge-green">4.9%</span></td><td><span class="accent">9%</span></td><td><span class="accent">8%</span></td><td>Best copy, worst deliverability</td></tr>
+    <tr><td>Designer Campaign - 05.05</td><td>1,664</td><td>41%</td><td>6%</td><td><span class="badge badge-green">2.5%</span></td><td>2%</td><td>0%</td><td>Highest volume winner</td></tr>
+    <tr><td>Luxury Interior Designers - 12.05</td><td>1,953</td><td>68%</td><td>8%</td><td><span class="badge badge-green">2.1%</span></td><td>3%</td><td>1%</td><td>Good balance</td></tr>
+    <tr><td>Copy of Designer Campaign - 07.01</td><td>1,240</td><td>54%</td><td>11%</td><td><span class="badge badge-green">1.9%</span></td><td>3%</td><td>0%</td><td>Solid iteration</td></tr>
+    <tr><td>Vermont Resort Outreach</td><td>64</td><td>44%</td><td>2%</td><td>1.6%</td><td>2%</td><td>0%</td><td>Too small to judge</td></tr>
+    <tr><td>Wineries</td><td>308</td><td>58%</td><td>12%</td><td>1.5%</td><td>2%</td><td>0%</td><td>Strong reply, low interest conversion</td></tr>
+    <tr><td>Retirement Communities</td><td>276</td><td>76%</td><td>6%</td><td>1.4%</td><td><span class="accent">5%</span></td><td>0%</td><td>High opens, copy-paste errors</td></tr>
+    <tr class="warn"><td>Custom Home Builders</td><td>208</td><td>50%</td><td>7%</td><td>0.7%</td><td><span class="accent">14%</span></td><td><span class="accent">4%</span></td><td><span class="badge badge-red">Kill</span> -- catastrophic deliverability</td></tr>
+    <tr class="warn"><td>Luxury Interior Designers - 01.04.26</td><td>1,925</td><td>54%</td><td>1%</td><td>0.3%</td><td>1%</td><td>1%</td><td>Regression from 12.05 version</td></tr>
+    <tr class="danger"><td>Luxury Hospitality Executives</td><td>1,434</td><td>67%</td><td>2%</td><td>0.1%</td><td><span class="accent">4%</span></td><td>1%</td><td><span class="badge badge-red">Kill</span> -- brochure copy, 1 interested of 1,434</td></tr>
+    <tr class="danger"><td>Interior Designer Outreach</td><td>1,936</td><td>56%</td><td>1%</td><td>0%</td><td>0%</td><td>0%</td><td><span class="badge badge-red">Kill</span> -- zero interested, zero personalization</td></tr>
+    <tr class="danger"><td>Golf Club Management</td><td>172</td><td>48%</td><td>6%</td><td>0%</td><td><span class="accent">5%</span></td><td>0%</td><td><span class="badge badge-red">Kill</span> -- 0 interested, bounce issues</td></tr>
+    <tr class="danger"><td>Copy of Country Clubs (1)</td><td>208</td><td>61%</td><td>4%</td><td>0%</td><td><span class="accent">7%</span></td><td>1%</td><td><span class="badge badge-red">Kill</span> -- 0 interested, high bounce</td></tr>
+    <tr class="danger"><td>Boutique Hotels</td><td>36</td><td>41%</td><td>0%</td><td>0%</td><td><span class="accent">11%</span></td><td>0%</td><td><span class="badge badge-red">Kill</span> -- 0 replies, 11% bounce</td></tr>
+    <tr><td>NJ Resort Outreach</td><td>16</td><td>33%</td><td>7%</td><td>0%</td><td><span class="accent">6%</span></td><td>0%</td><td>Too small, poor data quality</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Vertical Performance Summary</h3>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Vertical</th>
+      <th>Contacts</th>
+      <th>Open Rate</th>
+      <th>Reply Rate</th>
+      <th>Interest Signal</th>
+      <th>Priority</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Interior Designers</td><td>16,108</td><td>58%</td><td>7.5%</td><td>Strong (917 replies, 34 interested in best sequence)</td><td><span class="badge badge-green">Keep -- refine heavily</span></td></tr>
+    <tr><td>Wineries</td><td>3,200</td><td>67%</td><td>14.7%</td><td>Moderate (high reply but many negative)</td><td><span class="badge badge-green">Keep -- expand</span></td></tr>
+    <tr><td>Hospitality</td><td>6,080</td><td>64%</td><td>2.7%</td><td>Low (1 meeting from 6,080 contacts)</td><td><span class="badge badge-red">Rebuild entirely</span></td></tr>
+    <tr><td>Retirement Communities</td><td>276</td><td>76%</td><td>6%</td><td>Low-Moderate (3 interested)</td><td><span class="badge badge-yellow">Test further</span></td></tr>
+    <tr><td>Golf/Country Clubs</td><td>435</td><td>52%</td><td>4.7%</td><td>None (0 interested)</td><td><span class="badge badge-yellow">Pause</span></td></tr>
+    <tr><td>Custom Home Builders</td><td>208</td><td>50%</td><td>7%</td><td>None (1 interested, 14% bounce)</td><td><span class="badge badge-red">Kill</span></td></tr>
+    <tr><td>Resorts</td><td>80</td><td>42%</td><td>3%</td><td>Minimal (1 interested)</td><td><span class="badge badge-yellow">Rebuild with better data</span></td></tr>
+    <tr><td>Boutique Hotels</td><td>36</td><td>41%</td><td>0%</td><td>None</td><td><span class="badge badge-yellow">Rebuild with better data</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<details>
+  <summary>What Works (Proven Patterns)</summary>
+  <div class="detail-body">
+    <ol style="margin:8px 0;padding-left:20px">
+      <li style="margin:10px 0"><strong>Personal geographic connection</strong> -- Georgia sequence led with "I grew up in Marietta" and hit 21% reply rate. The UT Austin connection sequence hit 28% reply rate. Personal ties are the single strongest predictor of engagement.</li>
+      <li style="margin:10px 0"><strong>Industry-specific framing</strong> -- Wineries sequence painted a picture ("Imagine your outdoor spaces full year-round -- without propane heaters") rather than listing features. 12% reply rate.</li>
+      <li style="margin:10px 0"><strong>Conversational tone</strong> -- Short sentences, no jargon, no bullet lists. Winners read like a person talking, not marketing collateral.</li>
+      <li style="margin:10px 0"><strong>Direct CTA with time specificity</strong> -- "I'd love to connect for 15 minutes" outperformed every soft CTA like "Would you be open to seeing our catalog?"</li>
+      <li style="margin:10px 0"><strong>Single idea per email</strong> -- Georgia Step 1 has one idea: local connection + invite to trade program. Three sentences. The hospitality sequence crammed seven ideas into one email and got 2% reply rate.</li>
+      <li style="margin:10px 0"><strong>Re: threading in subject lines</strong> -- Steps 2-3 using "Re:" consistently maintained open rates within 5-10 points of Step 1.</li>
+      <li style="margin:10px 0"><strong>Company name in subject</strong> -- Subjects with {{company_name}} opened 5-15% higher than generic subjects.</li>
+    </ol>
+  </div>
+</details>
+
+<details>
+  <summary>What Fails (Anti-Patterns to Eliminate)</summary>
+  <div class="detail-body">
+    <ol style="margin:8px 0;padding-left:20px">
+      <li style="margin:10px 0"><strong>Bullet-list feature dumps</strong> -- "Hotels love working with us because: (bullet) (bullet) (bullet)" reads like a brochure. Every underperformer uses this pattern.</li>
+      <li style="margin:10px 0"><strong>Commission/revenue angle for designers</strong> -- "Earning them over $7,500 in commission" is off-putting. Designers care about design quality, not commission checks.</li>
+      <li style="margin:10px 0"><strong>Copy recycling</strong> -- Steps 5-8 are identical across 8+ sequences. The Retirement Communities sequence references "wineries" in Step 6. Copy-paste errors destroy credibility.</li>
+      <li style="margin:10px 0"><strong>"Should I stay or should I go?"</strong> -- Used as Step 8 subject across every sequence, consistently producing the lowest open rates (15-28%). Exhausted.</li>
+      <li style="margin:10px 0"><strong>"Fallen and can't get up" joke</strong> -- Used in every breakup email. Risks undermining luxury brand credibility. Especially problematic when sent to retirement communities.</li>
+      <li style="margin:10px 0"><strong>Soft hedging CTAs</strong> -- "Curious? I'd love to send you a catalog or schedule a quick intro call" / "If this is something interesting to you, I'd be glad to share." Creates no urgency, gives easy opt-out.</li>
+      <li style="margin:10px 0"><strong>Company-first openers</strong> -- "I'm Kevin, CEO of Outmore Living..." used in 14 of 18 active sequences. Self-centered opening. The Georgia sequence (the only winner) opens with the recipient.</li>
+      <li style="margin:10px 0"><strong>8-9 step sequences</strong> -- Steps 6-9 produce &lt;5% of total replies while adding deliverability risk. Dead weight.</li>
+    </ol>
+  </div>
+</details>
+
+<!-- ============================================ -->
+<!-- 2. IMPROVING EXISTING SEQUENCES -->
+<!-- ============================================ -->
+<h2 id="section-2">2. Improving Existing Sequences</h2>
+
+<h3>2.1 Structural Changes (Apply to All Sequences)</h3>
+
+<h4>Cut to 4-Step Sequences</h4>
+
+<p>Current 8-9 step sequences are burning sender reputation for marginal return. Steps 1-4 capture ~88% of all reply value.</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Step</th>
+      <th>Timing</th>
+      <th>Purpose</th>
+      <th>Style</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><span class="badge badge-active">1</span></td><td>Day 0</td><td>Personal intro + hook</td><td>Lead with recipient/property observation. One idea. Direct CTA.</td></tr>
+    <tr><td><span class="badge badge-active">2</span></td><td>Day 3-4</td><td>New value angle</td><td>Different hook -- social proof, scenario, or fresh angle. Not a "just following up."</td></tr>
+    <tr><td><span class="badge badge-active">3</span></td><td>Day 7-8</td><td>Direct ask + urgency</td><td>Shorter. Reference previous emails indirectly. Concrete CTA with time.</td></tr>
+    <tr><td><span class="badge badge-active">4</span></td><td>Day 14</td><td>Clean breakup</td><td>Short, gracious, leave door open. No jokes. No guilt.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="callout callout-info">
+  <strong>Rationale:</strong> 48% of replies come from Step 1, 22% from Step 2, 12% from Step 3, 6% from Step 4. The remaining 12% from Steps 5-9 does not justify the deliverability cost of 4-5 additional sends per contact.
+</div>
+
+<div class="bar-chart">
+  <div class="bar-row">
+    <div class="bar-label">Step 1</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:48%;background:#F25431">48%</div>
+    </div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">Step 2</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:22%;background:#F25431">22%</div>
+    </div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">Step 3</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:12%;background:#f09070">12%</div>
+    </div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label">Step 4</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:6%;background:#f09070">6%</div>
+    </div>
+  </div>
+  <div class="bar-row">
+    <div class="bar-label" style="color:#ccc">Steps 5-9</div>
+    <div class="bar-track">
+      <div class="bar-fill" style="width:12%;background:#ddd">12%</div>
+    </div>
+  </div>
+</div>
+
+<h4>Subject Line Overhaul</h4>
+
+<p>Rules for the AI generation prompt:</p>
+
+<ol class="rec-list">
+  <li>Include <code>{{company_name}}</code> or <code>{{first_name}}</code> in Step 1 subjects (5-15% open lift proven)</li>
+  <li>Use <code>Re:</code> threading for Steps 2-3 (maintains 46%+ open rates)</li>
+  <li>Step 4 breakup: test direct subjects ("Last note from me", "Closing the loop") instead of pop culture references</li>
+  <li>Keep subjects 3-8 words maximum</li>
+  <li>Never use the same breakup subject across sequences</li>
+  <li>Avoid question-mark subjects for Step 1 (statements outperform questions in hospitality)</li>
+</ol>
+
+<h4>A/B Tests to Run</h4>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Test</th>
+      <th>Variant A</th>
+      <th>Variant B</th>
+      <th>Metric</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Subject personalization</td><td><code>{{company_name}} + outdoor spaces</code></td><td><code>{{first_name}}, quick question</code></td><td>Open rate</td></tr>
+    <tr><td>Step 1 length</td><td>60-80 words</td><td>100-120 words</td><td>Reply rate</td></tr>
+    <tr><td>CTA style</td><td>"15 minutes Thursday?"</td><td>"Worth a look?"</td><td>Reply rate</td></tr>
+    <tr><td>Breakup tone</td><td>Professional ("Last note")</td><td>Light humor (brand-safe)</td><td>Reply rate</td></tr>
+    <tr><td>Step 2 approach</td><td>Social proof ("Another [city] property...")</td><td>Value add ("2-min video walkthrough")</td><td>Reply rate</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h4>Copy Principles (Encode into Prompt Templates)</h4>
+
+<p class="muted" style="font-size:0.85rem">Update <code>/prompts/message-generation.md</code> to enforce these rules:</p>
+
+<div class="finding">
+  <div class="finding-title">1. Open with the recipient, not yourself</div>
+  <div class="finding-body">First sentence must reference the prospect, their company, their city, or something specific to them. Never start with "I'm Kevin" or "My name is."</div>
+</div>
+
+<div class="finding">
+  <div class="finding-title">2. One idea per email, maximum</div>
+  <div class="finding-body">Step 1: personal connection + invite. Step 2: a different angle or social proof. Step 3: direct ask. Step 4: farewell. No email should contain more than one value proposition.</div>
+</div>
+
+<div class="finding">
+  <div class="finding-title">3. No bullet lists in cold emails</div>
+  <div class="finding-body">All copy must be conversational prose. Bullets signal marketing collateral and immediately reduce perceived authenticity.</div>
+</div>
+
+<div class="finding">
+  <div class="finding-title">4. Direct CTAs with specificity</div>
+  <div class="finding-body">Every email must end with a concrete next step: "15 minutes this week?", "Can I send a 2-minute video?", "Want me to send a swatch kit?" Never "Let me know if interested" or "I'd be happy to share more."</div>
+</div>
+
+<div class="finding">
+  <div class="finding-title">5. Paint a picture, don't list features</div>
+  <div class="finding-body">Instead of "5 temperature levels, 10+ hours cordless, FSC-certified teak" write "Picture your guests staying outside past sunset in November -- no propane heaters, no wires, just warm teak furniture they don't want to leave."</div>
+</div>
+
+<div class="finding">
+  <div class="finding-title">6. Never recycle copy across segments</div>
+  <div class="finding-body">Every sequence must have segment-specific language. A winery GM and a retirement community director have fundamentally different motivations.</div>
+</div>
+
+<h3>2.2 Sequence-Specific Improvements</h3>
+
+<details>
+  <summary>Interior Designers (Keep + Refine) -- 16,108 contacts, largest vertical</summary>
+  <div class="detail-body">
+    <p>This is the largest vertical and the one with the most data. The Designer Campaign 05.05 at 6% reply with 34 interested is the volume workhorse.</p>
+    <h4>Changes</h4>
+    <ul style="margin:8px 0 16px 20px">
+      <li>Lead with design quality, materials, aesthetic -- not commission or trade discount</li>
+      <li>Open with an observation about their portfolio or a recent project (tier 1 personalization from Firecrawl when available)</li>
+      <li>Position heated furniture as a design differentiator, not a utilitarian add-on</li>
+      <li>CTA: invite to experience the product (swatch kit, showroom visit, design consultation) rather than "see our catalog"</li>
+      <li>Reference the trade program as an afterthought, not the lead</li>
+    </ul>
+    <h4>Step 1 Template Direction</h4>
+    <div class="email-block">Hi {{first_name}},
+
+[Observation about their work or location]. I co-founded Outmore Living
+-- we make the Solerno Collection, heated outdoor furniture in FSC teak
+and Sunbrella fabrics.
+
+Your [specific reference] caught my eye. Our designers love pairing heated
+seating with [relevant design context] -- it lets clients actually use
+outdoor spaces year-round without ugly heat lamps.
+
+Worth 15 minutes to see if it fits your projects?
+
+Kevin</div>
+  </div>
+</details>
+
+<details>
+  <summary>Wineries (Keep + Expand) -- 3,200 contacts, highest reply rate at 14.7%</summary>
+  <div class="detail-body">
+    <p>14.7% reply rate across 3,200 contacts makes this the highest-converting vertical by rate. The scenario-painting approach works here ("Imagine your outdoor spaces full year-round").</p>
+    <h4>Changes</h4>
+    <ul style="margin:8px 0 16px 20px">
+      <li>Expand targeting to include craft breweries, cideries, distilleries with tasting rooms</li>
+      <li>Lead with seasonal revenue extension angle (wineries lose 3-5 months of outdoor tasting revenue)</li>
+      <li>Reference wine country geography for personalization (Napa, Sonoma, Willamette, Finger Lakes, etc.)</li>
+      <li>Step 2: social proof from winery installs if available, or paint seasonal scenario</li>
+      <li>Keep email length short (the winning winery emails were among the shortest)</li>
+    </ul>
+  </div>
+</details>
+
+<details>
+  <summary>Hospitality (Rebuild Entirely) -- 6,080 contacts, 1 meeting booked</summary>
+  <div class="detail-body">
+    <p>1 meeting from 6,080 contacts across 3 hospitality operator sequences is a failure. The copy reads like marketing collateral with bullet lists of features.</p>
+    <h4>Rebuild Approach</h4>
+    <ul style="margin:8px 0 16px 20px">
+      <li>Split into sub-segments: luxury hotels, boutique hotels, resort properties, restaurant groups</li>
+      <li>Lead with guest experience angle, not F&B revenue or operational efficiency</li>
+      <li>For luxury properties: position Outmore as a guest experience differentiator ("The kind of detail that gets mentioned in reviews")</li>
+      <li>For restaurants: seasonal revenue angle ("How much outdoor revenue do you lose between November and March?")</li>
+      <li>Research the specific property before sending (Firecrawl integration critical here)</li>
+      <li>CTA: offer to send photos of installations at similar properties, or invite to a brief property-specific walkthrough</li>
+    </ul>
+  </div>
+</details>
+
+<details>
+  <summary>Retirement Communities (Test Further) -- 276 contacts, 76% open rate</summary>
+  <div class="detail-body">
+    <p>76% open rate is exceptional. 6% reply rate with 3 interested from only 276 contacts warrants further testing, but the copy has serious errors (references "wineries" in Step 6).</p>
+    <h4>Changes</h4>
+    <ul style="margin:8px 0 16px 20px">
+      <li>Fix all copy-paste errors immediately</li>
+      <li>Lead with resident comfort and wellness angle</li>
+      <li>Reference outdoor programming and resident satisfaction</li>
+      <li>CTA: "Would a demo on your patio make sense?"</li>
+      <li>Expand test to 500-1,000 contacts with clean, segment-specific copy</li>
+    </ul>
+  </div>
+</details>
+
+<!-- ============================================ -->
+<!-- 3. NEW / DROP / CHANGE -->
+<!-- ============================================ -->
+<h2 id="section-3">3. New Sequences to Add / Sequences to Drop or Change</h2>
+
+<h3>3.1 Sequences to Drop Immediately</h3>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Sequence</th>
+      <th>Reason</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="danger"><td>Custom Home Builders</td><td>14% bounce, 4% spam, 1 interested from 208 contacts</td><td><span class="badge badge-red">Kill</span> Bad data quality.</td></tr>
+    <tr class="danger"><td>Boutique Hotels</td><td>11% bounce, 0 replies from 36 contacts</td><td><span class="badge badge-red">Kill</span> Rebuild with verified emails.</td></tr>
+    <tr class="warn"><td>Golf Club Management</td><td>0 interested from 172 contacts, 5% bounce</td><td><span class="badge badge-yellow">Pause</span> Rethink angle -- golf clubs may not be viable.</td></tr>
+    <tr class="warn"><td>Copy of Country Clubs (1)</td><td>0 interested from 208 contacts, 7% bounce</td><td><span class="badge badge-yellow">Pause</span> Merge with golf if restarting.</td></tr>
+    <tr class="danger"><td>Interior Designer Outreach</td><td>0 interested from 1,936 contacts, 1% reply</td><td><span class="badge badge-red">Kill</span> Replace with AI-generated sequences.</td></tr>
+    <tr class="danger"><td>Luxury Hospitality Executives</td><td>1 interested from 1,434 contacts, brochure copy</td><td><span class="badge badge-red">Kill</span> Rebuild as sub-segmented approach.</td></tr>
+    <tr><td>Copy of Copy of Golf Club Mgmt</td><td>Never sent (draft)</td><td><span class="badge badge-gray">Delete</span></td></tr>
+    <tr><td>Copy of Designer Campaign - 05.05</td><td>Never sent (draft)</td><td><span class="badge badge-gray">Delete</span></td></tr>
+    <tr><td>Copy of Country Clubs (2)</td><td>Never sent (draft)</td><td><span class="badge badge-gray">Delete</span></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>3.2 Sequences to Merge or Consolidate</h3>
+
+<div class="compare-grid">
+  <div class="compare-card">
+    <h3>Designer Sequences (5+ active)</h3>
+    <p style="font-size:0.85rem;color:#555;margin-bottom:12px">Consolidate into 2 AI-generated campaign types:</p>
+    <div class="compare-row"><span>"Designer - Portfolio Personalized"</span><span class="val"><span class="badge badge-green">Tier 1</span></span></div>
+    <div class="compare-row"><span>Smaller batches, Firecrawl portfolio research</span><span class="val"></span></div>
+    <div class="compare-row"><span>"Designer - Region Personalized"</span><span class="val"><span class="badge badge-blue">Tier 2</span></span></div>
+    <div class="compare-row"><span>Geographic hook (like Georgia sequence)</span><span class="val"></span></div>
+  </div>
+  <div class="compare-card">
+    <h3>Hospitality Sequences (3+ operator)</h3>
+    <p style="font-size:0.85rem;color:#555;margin-bottom:12px">Consolidate into 3 sub-segment sequences:</p>
+    <div class="compare-row"><span>"Luxury Hotels &amp; Resorts"</span><span class="val">Property-specific research</span></div>
+    <div class="compare-row"><span>"Restaurant Groups"</span><span class="val">Seasonal revenue angle</span></div>
+    <div class="compare-row"><span>"Boutique Hotels"</span><span class="val">Design/experience angle</span></div>
+  </div>
+</div>
+
+<h3>3.3 New Sequences to Create</h3>
+
+<h4>Priority 1: Event-Triggered Sequences</h4>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Trigger</th>
+      <th>Sequence Name</th>
+      <th>Rationale</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Recent renovation announced</td><td><strong>"Property Refresh"</strong></td><td>Properties renovating outdoor spaces are actively buying furniture. Firecrawl can detect renovation mentions on property websites.</td></tr>
+    <tr><td>Seasonal change (Oct-Nov)</td><td><strong>"Winter is Coming"</strong></td><td>As first cold snap hits, outdoor dining revenue drops to zero. Highest urgency moment for heated furniture.</td></tr>
+    <tr><td>New property opening</td><td><strong>"Grand Opening"</strong></td><td>New hotels/restaurants outfitting from scratch are the ideal buyer. Monitor press releases + Firecrawl.</td></tr>
+    <tr><td>Trade show attendance</td><td><strong>"After [Show Name]"</strong></td><td>Follow up with contacts met at BDNY, HD Expo, ICFF, etc. Warm lead, high personalization.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h4>Priority 2: Re-Engagement Sequences</h4>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Segment</th>
+      <th>Sequence Name</th>
+      <th>Rationale</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>"Circle Back Later" replies (9 contacts)</td><td><strong>"Checking In"</strong></td><td>9 people explicitly said "not now, maybe later." 2-3 month follow-up with new value.</td></tr>
+    <tr><td>"Forwarded" replies (9 contacts)</td><td><strong>"Referred By"</strong></td><td>9 people forwarded to someone else. Follow up with the referral as a warm intro.</td></tr>
+    <tr><td>"Introduction" replies (16 contacts)</td><td><strong>"Nice to Meet You"</strong></td><td>16 people expressed interest at an introductory level. Nurture sequence.</td></tr>
+    <tr><td>Opened but no reply (high-open sequences)</td><td><strong>"Second Look"</strong></td><td>Contacts who opened 3+ emails but never replied. Different angle, different sender.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h4>Priority 3: Segment Expansion</h4>
+
+<div class="stat-grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+  <div class="stat-card">
+    <div class="number" style="font-size:1.5rem">10,000+</div>
+    <div class="label">Coffee Shops (Premium)</div>
+    <p style="font-size:0.75rem;color:#7a7572;margin-top:6px">"Patio Regulars" -- specialty shops with outdoor seating</p>
+  </div>
+  <div class="stat-card">
+    <div class="number" style="font-size:1.5rem">5,000+</div>
+    <div class="label">Craft Breweries</div>
+    <p style="font-size:0.75rem;color:#7a7572;margin-top:6px">"Patio Season" -- natural winery extension</p>
+  </div>
+  <div class="stat-card">
+    <div class="number" style="font-size:1.5rem">3,000+</div>
+    <div class="label">Wedding Venues</div>
+    <p style="font-size:0.75rem;color:#7a7572;margin-top:6px">"Year-Round Celebrations" -- extends wedding season</p>
+  </div>
+  <div class="stat-card">
+    <div class="number" style="font-size:1.5rem">2,000+</div>
+    <div class="label">Rooftop Bars</div>
+    <p style="font-size:0.75rem;color:#7a7572;margin-top:6px">"Rooftop Revival" -- premium urban outdoor space</p>
+  </div>
+  <div class="stat-card">
+    <div class="number" style="font-size:1.5rem">1,000+</div>
+    <div class="label">Luxury RV / Glamping</div>
+    <p style="font-size:0.75rem;color:#7a7572;margin-top:6px">"Outdoor Luxury" -- premium outdoor experience</p>
+  </div>
+  <div class="stat-card">
+    <div class="number" style="font-size:1.5rem">800+</div>
+    <div class="label">Yacht Clubs &amp; Marinas</div>
+    <p style="font-size:0.75rem;color:#7a7572;margin-top:6px">"Dockside Comfort" -- affluent members, seasonal use</p>
+  </div>
+  <div class="stat-card">
+    <div class="number" style="font-size:1.5rem">500+</div>
+    <div class="label">Ski Resorts</div>
+    <p style="font-size:0.75rem;color:#7a7572;margin-top:6px">"Apres-Ski" -- perfect product-market fit</p>
+  </div>
+</div>
+
+<h4>Priority 4: Sender Diversification</h4>
+
+<div class="callout callout-warn">
+  <strong>Risk:</strong> Kevin currently sends 93% of all outreach. This is both a bottleneck and a reputation risk.
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Sender</th>
+      <th>Sequence Type</th>
+      <th>Rationale</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Kasey</strong></td><td>All designer sequences</td><td>Kevin's designer sequences are fatiguing. Fresh sender + voice for the same vertical.</td></tr>
+    <tr><td><strong>Kevin</strong></td><td>Hospitality + new verticals</td><td>Kevin's co-founder credibility works best for C-level hospitality contacts.</td></tr>
+    <tr><td><strong>Future sender</strong></td><td>Re-engagement</td><td>Separate sender for warm/re-engagement to protect cold outreach reputation.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>3.4 Seasonal Campaign Calendar</h3>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Month</th>
+      <th>Campaign Focus</th>
+      <th>Why</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><span class="badge badge-yellow">Sep-Oct</span></td><td><strong>"Get Ready for Winter"</strong></td><td>Budget planning season for Q1. Decision-makers thinking about patio closures.</td></tr>
+    <tr><td><span class="badge badge-red">November</span></td><td><strong>"Your Patio Just Closed"</strong></td><td>First cold snap. Pain is fresh. Highest urgency.</td></tr>
+    <tr><td><span class="badge badge-blue">Jan-Feb</span></td><td><strong>"365-Day Trial Starts Now"</strong></td><td>New year budgets. Trial offer de-risks the purchase.</td></tr>
+    <tr><td><span class="badge badge-green">Mar-Apr</span></td><td><strong>"Patio Season Preview"</strong></td><td>Outdoor spaces reopening. Time to upgrade before summer.</td></tr>
+    <tr><td><span class="badge badge-active">May</span></td><td><strong>"Trade Show Follow-Up"</strong></td><td>Post-HD Expo, ICFF, BDNY networking.</td></tr>
+    <tr><td><span class="badge badge-yellow">Jul-Aug</span></td><td><strong>"Summer Success Stories"</strong></td><td>Social proof from current season installations. Case studies.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ============================================ -->
+<!-- 4. RLHF FEEDBACK LOOP -->
+<!-- ============================================ -->
+<h2 id="section-4">4. RLHF Feedback Loop Integration</h2>
+
+<h3>4.1 Existing RLHF Mechanisms in the Codebase</h3>
+
+<p>The OUTMORE Outreach system already has a comprehensive RLHF architecture. Here is what exists and how each component feeds the learning loop.</p>
+
+<details>
+  <summary>Voice Training System (3 Modes)</summary>
+  <div class="detail-body">
+    <p class="muted" style="font-size:0.8rem">Location: <code>src/app/dashboard/training/</code>, <code>src/components/training/</code>, <code>src/app/api/training/</code></p>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Mode</th><th>Component</th><th>Weight</th><th>Signal</th></tr></thead>
+      <tbody>
+        <tr><td>A/B Pick</td><td><code>ab-pick.tsx</code></td><td>60% of challenges</td><td>Binary preference signal -- which style the sender prefers</td></tr>
+        <tr><td>Rate &amp; Revise</td><td><code>rate-revise.tsx</code></td><td>25% of challenges</td><td>Quality signal (1-5 stars) + rewrite signal (gold-standard text)</td></tr>
+        <tr><td>Rank</td><td><code>rank-options.tsx</code></td><td>15% of challenges</td><td>Ordinal preference across 4 options -- reveals gradient, not just binary</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>Training responses are stored in <code>voice_training_responses</code> table. On session completion, the system triggers preference aggregation via the <code>training-aggregation.md</code> prompt, which extracts structured preferences into <code>voice_preferences</code> with confidence scores.</p>
+    <p><strong>Current coverage:</strong> 10 preference categories (cold_open, follow_up, reply, objection, meeting_ask, breakup, subject_line, tone, length, cta) with confidence scoring from 0.3 to 1.0.</p>
+  </div>
+</details>
+
+<details>
+  <summary>Voice Profile Generation</summary>
+  <div class="detail-body">
+    <p class="muted" style="font-size:0.8rem">Location: <code>src/app/api/jobs/voice-rebuild/route.ts</code>, <code>prompts/voice-profile-generation.md</code></p>
+    <p>The voice profile is the central artifact that drives all downstream email generation. It is rebuilt when:</p>
+    <ul style="margin:8px 0 8px 20px">
+      <li>25+ new emails are ingested from Gmail</li>
+      <li>Manually triggered from the dashboard</li>
+      <li>(Future) When drift is detected</li>
+    </ul>
+    <p><strong>Inputs consumed:</strong></p>
+    <ol style="margin:8px 0 8px 20px">
+      <li>Top 100 voice_emails ranked by quality_score (real sent emails)</li>
+      <li>Starred emails (booked_meeting = true) -- weighted heavily</li>
+      <li>Voice preferences from training sessions</li>
+      <li>Training response signals (last 50 responses)</li>
+      <li><strong>Performance metrics from Instantly</strong> (last 4 weeks of open/click/reply/bounce/meeting rates by angle, persona, segment)</li>
+    </ol>
+    <p><strong>Output:</strong> Structured JSON with <code>voice_summary</code> (narrative brief) and <code>style_guide</code> (formality, length, greeting, CTA, tone, humor, personalization approach, vocabulary, structural patterns).</p>
+    <div class="callout callout-info">
+      <strong>Key insight:</strong> The voice profile generation prompt already instructs Opus to "incorporate performance data -- if certain angles or segments have notably higher open/click/reply rates, note which voice patterns correlate with those wins." This means objective market feedback already flows into subjective voice generation.
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Quality Scoring (Generation-Time Gate)</summary>
+  <div class="detail-body">
+    <p class="muted" style="font-size:0.8rem">Location: <code>src/app/api/jobs/sequence-generate/route.ts</code>, <code>prompts/quality-scoring.md</code></p>
+    <p>Every generated sequence goes through a quality scoring step before being presented for human review:</p>
+    <ol style="margin:8px 0 8px 20px">
+      <li>Messages are scored 0-1 across 5 dimensions: Voice Match (25%), Personalization (25%), Compelling Hook (20%), CTA Clarity (15%), Technical Quality (15%)</li>
+      <li>If any message scores below 0.7, it is regenerated with the quality feedback appended to the prompt</li>
+      <li>Maximum 2 retries before proceeding with best available</li>
+    </ol>
+    <p><strong>Current thresholds:</strong> <code>MIN_QUALITY_SCORE = 0.7</code>, <code>MAX_RETRIES = 2</code></p>
+  </div>
+</details>
+
+<details>
+  <summary>Approve/Reject Signals from Dashboard</summary>
+  <div class="detail-body">
+    <p class="muted" style="font-size:0.8rem">Location: <code>src/app/api/sequences/[id]/approve/route.ts</code>, <code>src/app/api/sequences/[id]/reject/route.ts</code></p>
+    <p>When a sender reviews a sequence in the dashboard:</p>
+    <ul style="margin:8px 0 8px 20px">
+      <li><strong>Approve</strong> sets sequence status to <code>approved</code>, messages to <code>approved</code></li>
+      <li><strong>Reject</strong> stores <code>rejection_feedback</code> text on the sequence -- the sender explains what was wrong</li>
+    </ul>
+    <div class="callout callout-warn">
+      <strong>Current gap:</strong> Rejection feedback is stored but not yet systematically fed back into the generation pipeline. This is the most critical missing link.
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Weekly Learning Analysis</summary>
+  <div class="detail-body">
+    <p class="muted" style="font-size:0.8rem">Location: <code>src/app/api/jobs/weekly-learning/route.ts</code>, <code>prompts/weekly-learning.md</code></p>
+    <p>Runs every Monday at 3:00 AM UTC. Performs:</p>
+    <ol style="margin:8px 0 8px 20px">
+      <li>Pulls last 30 days of <code>message_performance</code> data</li>
+      <li>Aggregates by 4 dimensions: angle, persona, segment, personalization_tier</li>
+      <li>Calculates rates: open, reply, positive_reply, meeting, bounce, click</li>
+      <li>Stores aggregated stats in <code>performance_insights</code> table</li>
+      <li>Calls Claude Opus for strategic analysis</li>
+      <li>Auto-adds positive-reply emails to <code>voice_emails</code> as <code>source = 'system_winner'</code></li>
+    </ol>
+    <div class="callout callout-success">
+      <strong>This is the critical reinforcement loop:</strong> Winning emails (positive replies) automatically become part of the voice profile training corpus. Over time, the voice profile biases toward patterns that actually work in market.
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>Reply Classification &amp; Instantly Webhook Pipeline</summary>
+  <div class="detail-body">
+    <p class="muted" style="font-size:0.8rem">Location: <code>src/app/api/webhooks/instantly/route.ts</code>, <code>prompts/reply-classification.md</code>, <code>prompts/reply-draft.md</code></p>
+    <p>Every reply webhook from Instantly triggers:</p>
+    <ol style="margin:8px 0 8px 20px">
+      <li>Reply sentiment classification (Sonnet)</li>
+      <li>Performance tracking update (<code>message_performance</code> table)</li>
+      <li>Auto-reply pipeline (if confidence &gt; 0.85 and sentiment is in allowed list)</li>
+      <li>HubSpot write-back for positive replies</li>
+    </ol>
+    <p><strong>Data captured per reply:</strong> sentiment, confidence, summary, suggested_response, urgency, action_required</p>
+    <p style="margin-top:12px">The Instantly webhook captures 6 event types that feed performance tracking:</p>
+    <ul style="margin:8px 0 8px 20px">
+      <li><code>email_sent</code> -- delivery confirmation</li>
+      <li><code>email_opened</code> -- engagement signal</li>
+      <li><code>reply_received</code> -- primary outcome signal (triggers classification)</li>
+      <li><code>email_bounced</code> -- data quality signal (marks contact as do_not_contact)</li>
+      <li><code>lead_unsubscribed</code> -- compliance signal</li>
+      <li><code>link_clicked</code> -- engagement signal</li>
+    </ul>
+  </div>
+</details>
+
+<h3>4.2 The Complete Feedback Loop (Current State)</h3>
+
+<div class="email-block" style="font-size:0.75rem;line-height:1.8">Gmail Ingest -------> Voice Emails (corpus)
+                              |
+                              v
+Training Sessions ---> Voice Preferences ---> Voice Profile ---> Message Generation
+                                                    |                     |
+                                                    |                     v
+                                        Performance Metrics <--- Quality Scoring (gate)
+                                                    |                     |
+                                                    |                     v
+                                                    |           Human Review (approve/reject)
+                                                    |                     |
+                                                    |                     v
+                                                    |            Instantly (send)
+                                                    |                     |
+                                                    |                     v
+                                                    |         Webhook Events (open/reply/click/bounce)
+                                                    |                     |
+                                                    |                     v
+                                        Weekly Learning <--- Message Performance
+                                              |
+                                              v
+                                      System Winners -------> Voice Emails (reinforcement)
+                                      Performance Insights --> Voice Profile (next rebuild)</div>
+
+<h3>4.3 Missing Links and Integration Improvements</h3>
+
+<details open>
+  <summary><span class="accent">Gap 1:</span> Rejection Feedback Not Feeding Back Into Generation</summary>
+  <div class="detail-body">
+    <div class="callout callout-warn">
+      <strong>Current state:</strong> When a sender rejects a sequence, the <code>rejection_feedback</code> text is stored on the <code>sequences</code> table but never consumed by the generation pipeline.
+    </div>
+    <p><strong>Fix:</strong> Add a "rejection patterns" input to the message generation prompt.</p>
+    <h4>Implementation</h4>
+    <ol style="margin:8px 0 8px 20px">
+      <li>In <code>/api/jobs/sequence-generate/route.ts</code>, before generating a new sequence, query recent rejections for this sender</li>
+      <li>Format as a "What to avoid" section in the message generation prompt</li>
+      <li>Add this as a new variable <code>{rejection_patterns}</code> in <code>prompts/message-generation.md</code></li>
+    </ol>
+    <div class="email-block">## Recent Rejection Feedback (avoid these patterns)
+- "Too formal, I'd never say 'I would be delighted'" (rejected 2 days ago, angle: design_upgrade)
+- "Way too long, needs to be half this length" (rejected 3 days ago, angle: seasonal_revenue)</div>
+    <div class="callout callout-success">
+      <strong>Priority: HIGH</strong> -- this is the fastest way to improve generation quality. Each rejection is a direct signal from the sender about what is wrong.
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary><span class="accent">Gap 2:</span> Step-Level Performance Not Tracked Granularly</summary>
+  <div class="detail-body">
+    <div class="callout callout-warn">
+      <strong>Current state:</strong> <code>message_performance</code> tracks which message got opened/replied/clicked, and the weekly learning aggregates by angle/persona/segment/tier. But there is no aggregation by <strong>step number</strong> or <strong>sequence structure</strong>.
+    </div>
+    <p><strong>Fix:</strong> Add <code>step_number</code> to the <code>message_performance</code> table and include step-level analysis in the weekly learning prompt.</p>
+    <h4>Implementation</h4>
+    <ol style="margin:8px 0 8px 20px">
+      <li>Add <code>step_number int</code> column to <code>message_performance</code></li>
+      <li>Populate it from <code>messages.step_number</code> when creating performance records</li>
+      <li>Add "step" as a 5th dimension in the weekly learning aggregation</li>
+      <li>Update <code>prompts/weekly-learning.md</code> to include step-level funnel analysis</li>
+    </ol>
+    <div class="callout callout-success">
+      <strong>Priority: HIGH</strong> -- this data directly informs the optimal sequence length and step structure.
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary><span class="accent">Gap 3:</span> Subject Line A/B Testing Not Instrumented</summary>
+  <div class="detail-body">
+    <div class="callout callout-warn">
+      <strong>Current state:</strong> The system generates one subject per step. There is no mechanism for testing subject line variants against each other.
+    </div>
+    <p><strong>Fix:</strong> Generate 2 subject line variants per step and track which performs better.</p>
+    <h4>Implementation</h4>
+    <ol style="margin:8px 0 8px 20px">
+      <li>Update <code>prompts/message-generation.md</code> to generate 2 subject variants per message</li>
+      <li>Add <code>variant</code> column to <code>messages</code> table (already exists, currently unused -- always 'a')</li>
+      <li>In <code>sync-instantly</code>, alternate variants across leads: even contacts get variant A, odd get variant B</li>
+      <li>Track open rates by variant in <code>message_performance</code></li>
+      <li>After 50+ sends per variant, auto-promote the winner in the weekly learning cycle</li>
+    </ol>
+    <div class="callout callout-info">
+      <strong>Priority: MEDIUM</strong> -- subject lines are the first gate. A 5% open rate improvement cascades through the entire funnel.
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary><span class="accent">Gap 4:</span> Voice Drift Detection Not Implemented</summary>
+  <div class="detail-body">
+    <div class="callout callout-warn">
+      <strong>Current state:</strong> The SPEC describes a voice drift detection mechanism (Appendix) but it is not built. The <code>drift_score</code> and <code>last_drift_check</code> columns exist on <code>voice_profiles</code> but are never populated.
+    </div>
+    <p><strong>Fix:</strong> Implement the monthly drift check as a cron job.</p>
+    <h4>Implementation</h4>
+    <ol style="margin:8px 0 8px 20px">
+      <li>Create <code>/api/jobs/voice-drift/route.ts</code></li>
+      <li>Pull 10 recent AI-generated emails + 10 recent real emails per sender</li>
+      <li>Send both sets to Claude (Opus) without labels</li>
+      <li>Claude rates each 0-1 on authenticity against the voice profile</li>
+      <li>If AI email average &lt; 0.7, flag for profile regeneration</li>
+      <li>Store <code>drift_score</code> and <code>last_drift_check</code> on <code>voice_profiles</code></li>
+      <li>Add to weekly Slack notification</li>
+    </ol>
+    <div class="callout callout-info">
+      <strong>Priority: MEDIUM</strong> -- becomes critical as the system generates more emails and the voice profile could gradually diverge from the sender's actual evolving style.
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary><span class="accent">Gap 5:</span> Persona-Level Performance Feedback Not Closing the Loop</summary>
+  <div class="detail-body">
+    <div class="callout callout-warn">
+      <strong>Current state:</strong> The <code>persona_voice_modifiers</code> table stores per-persona adjustments (tone, formality, CTA style, vocabulary). The weekly learning analyzes by persona. But there is no automated mechanism to update persona modifiers based on performance data.
+    </div>
+    <p><strong>Fix:</strong> Add persona modifier adjustment to the weekly learning pipeline.</p>
+    <h4>Implementation</h4>
+    <ol style="margin:8px 0 8px 20px">
+      <li>In the weekly learning job, after Opus generates the strategic analysis, extract persona-specific recommendations</li>
+      <li>For personas with 50+ sends and clear performance signals, auto-generate updated modifier suggestions</li>
+      <li>Present these as "Suggested persona adjustments" in the dashboard, requiring human approval before applying</li>
+      <li>Track modifier versions over time to measure impact</li>
+    </ol>
+    <div class="callout callout-info">
+      <strong>Priority: LOW</strong> -- requires sufficient per-persona data volume. Focus on this after 2-3 months of operation.
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary><span class="accent">Gap 6:</span> Angle Performance Not Feeding Back into Angle Selection</summary>
+  <div class="detail-body">
+    <div class="callout callout-warn">
+      <strong>Current state:</strong> The angle selection prompt (<code>prompts/angle-selection.md</code>) presents 8 angles but does not include performance data about which angles work for which segments.
+    </div>
+    <p><strong>Fix:</strong> Include angle performance data in the angle selection prompt.</p>
+    <h4>Implementation</h4>
+    <ol style="margin:8px 0 8px 20px">
+      <li>In <code>sequence-generate/route.ts</code>, query <code>performance_insights</code> for angle performance</li>
+      <li>Add as a new section in the angle selection prompt</li>
+    </ol>
+    <div class="email-block">## Historical Angle Performance
+- seasonal_revenue: 52% open, 4.2% reply, 1.1% positive (n=340)
+- guest_experience: 61% open, 6.8% reply, 2.3% positive (n=220)
+- design_upgrade: 48% open, 3.1% reply, 0.8% positive (n=180)
+
+Prefer angles with higher positive_reply_rate when the prospect fits.</div>
+    <div class="callout callout-success">
+      <strong>Priority: HIGH</strong> -- this is the most direct way to bias the system toward angles that actually convert.
+    </div>
+  </div>
+</details>
+
+<h3>4.4 Enhanced Weekly Learning Cycle Architecture</h3>
+
+<p>The current weekly learning cycle is good but should be enhanced with these additions:</p>
+
+<div class="email-block" style="font-size:0.75rem;line-height:1.8">Monday 03:00 UTC: Weekly Learning Job
+|
++-- 1. Aggregate performance data (existing)
+|   +-- By angle
+|   +-- By persona
+|   +-- By segment
+|   +-- By personalization_tier
+|   +-- By step_number (NEW)
+|
++-- 2. Identify winners and losers (existing)
+|   +-- Add positive-reply emails to voice_emails as system_winner (existing)
+|   +-- Flag underperforming angles/segments for deprioritization (NEW)
+|
++-- 3. Analyze rejection patterns (NEW)
+|   +-- Query recent rejections with feedback
+|   +-- Extract patterns (too formal, too long, wrong angle, etc.)
+|   +-- Store as "generation_avoidance_patterns" for next generation cycle
+|
++-- 4. Subject line variant analysis (NEW)
+|   +-- Compare A vs B variants with 50+ sends each
+|   +-- Promote winners
+|   +-- Generate new variants for testing
+|
++-- 5. Opus strategic analysis (existing, enhanced)
+|   +-- Include step-level funnel data (NEW)
+|   +-- Include rejection pattern summary (NEW)
+|   +-- Include subject line A/B results (NEW)
+|   +-- Generate specific prompt adjustment recommendations (NEW)
+|
++-- 6. Auto-adjust generation parameters (NEW)
+|   +-- If step 4 reply rate < 2% across all sequences -> reduce to 3-step
+|   +-- If an angle has 0% positive reply after 100+ sends -> auto-deprioritize
+|   +-- If a segment has bounce rate > 5% -> flag for list cleaning
+|   +-- Present adjustments for human approval in dashboard
+|
++-- 7. Slack weekly report (existing, enhanced)
+    +-- Include approval/rejection ratio
+    +-- Include top performing subject line variants
+    +-- Include recommended actions</div>
+
+<h3>4.5 How Approve/Reject Signals Improve Quality Over Time</h3>
+
+<div class="compare-grid">
+  <div class="compare-card">
+    <h3 style="color:#F25431">Immediate Effect</h3>
+    <p style="font-size:0.85rem;color:#555">Rejected sequences store feedback text. If the sender explains "too long" or "wrong tone," the next regeneration attempt includes this feedback.</p>
+  </div>
+  <div class="compare-card">
+    <h3 style="color:#ca8a04">Short-Term Effect</h3>
+    <p style="font-size:0.85rem;color:#555">Before generating new sequences, the system queries recent rejections. Common patterns (e.g., "bullet lists" in 5 of 10 rejections) are explicitly listed as things to avoid. Quality scoring threshold can be dynamically adjusted -- if rejection rate &gt;30%, raise <code>MIN_QUALITY_SCORE</code> from 0.7 to 0.8.</p>
+  </div>
+  <div class="compare-card">
+    <h3 style="color:#2563eb">Medium-Term Effect</h3>
+    <p style="font-size:0.85rem;color:#555">Weekly learning analysis includes approval/rejection ratios by angle, persona, and segment. Opus identifies systematic quality issues ("Sequences using operational_ease angle are rejected 60% of the time -- recommend deprioritizing"). Insights are stored and fed into the next voice profile rebuild.</p>
+  </div>
+  <div class="compare-card">
+    <h3 style="color:#16a34a">Long-Term Effect</h3>
+    <p style="font-size:0.85rem;color:#555">Training sessions present challenges informed by real performance data and rejection patterns. Voice profile rebuilds incorporate both training signals AND objective performance data. Over 3-6 months, the profile converges on the sender's authentic voice AND what works in market.</p>
+  </div>
+</div>
+
+<div class="callout callout-info">
+  <strong>Measurement:</strong> Track these metrics weekly to validate the loop is working:
+  <ul style="margin:8px 0 0 20px">
+    <li>Approval rate (target: &gt;80% after 4 weeks of operation)</li>
+    <li>Average quality score of approved sequences (target: trending upward)</li>
+    <li>Rejection reason distribution (target: fewer repeated reasons over time)</li>
+    <li>Reply rate of approved sequences vs. old Amplemarket sequences (target: &gt;2x improvement)</li>
+  </ul>
+</div>
+
+<!-- ============================================ -->
+<!-- 5. IMPLEMENTATION ROADMAP -->
+<!-- ============================================ -->
+<h2 id="section-5">5. Implementation Roadmap</h2>
+
+<div class="phase-header">
+  <span class="phase-badge">1</span>
+  <span class="phase-title">Quick Wins</span>
+  <span class="phase-timing">Week 1-2</span>
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>File(s)</th>
+      <th>Impact</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Kill underperforming sequences</td><td>Dashboard / Instantly</td><td>Stop burning sender reputation on 0% interest sequences</td></tr>
+    <tr><td>Update message-generation prompt with anti-patterns</td><td><code>prompts/message-generation.md</code></td><td>Eliminate bullet lists, feature dumps, soft CTAs, company-first openers</td></tr>
+    <tr><td>Add rejection feedback to generation pipeline</td><td><code>src/app/api/jobs/sequence-generate/route.ts</code></td><td>Direct quality improvement signal</td></tr>
+    <tr><td>Reduce default sequence length to 4 steps</td><td><code>prompts/message-generation.md</code></td><td>Reduce deliverability risk, focus effort on Steps 1-2</td></tr>
+    <tr><td>Fix Retirement Communities copy-paste errors</td><td>Instantly / dashboard</td><td>Restore credibility for active sequence</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="phase-header">
+  <span class="phase-badge">2</span>
+  <span class="phase-title">Feedback Loop Completion</span>
+  <span class="phase-timing">Week 3-4</span>
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>File(s)</th>
+      <th>Impact</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Add step_number to message_performance</td><td><code>supabase/migrations/</code>, webhook handler</td><td>Enable step-level funnel analysis</td></tr>
+    <tr><td>Add angle performance to angle selection prompt</td><td><code>sequence-generate/route.ts</code>, <code>prompts/angle-selection.md</code></td><td>Data-driven angle selection</td></tr>
+    <tr><td>Add subject line A/B variant generation</td><td><code>prompts/message-generation.md</code>, <code>sync-instantly/route.ts</code></td><td>Systematic subject line optimization</td></tr>
+    <tr><td>Enhance weekly learning with step-level + rejection analysis</td><td><code>weekly-learning/route.ts</code>, <code>prompts/weekly-learning.md</code></td><td>Richer strategic insights</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="phase-header">
+  <span class="phase-badge">3</span>
+  <span class="phase-title">New Sequences</span>
+  <span class="phase-timing">Week 5-8</span>
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Impact</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Launch "Designer - Portfolio Personalized" sequence (AI-generated, tier 1)</td><td>Test AI quality vs. Amplemarket templates</td></tr>
+    <tr><td>Launch "Wineries Expanded" (include breweries, cideries)</td><td>Expand highest-converting vertical</td></tr>
+    <tr><td>Launch "Luxury Hotels &amp; Resorts" rebuilt sequence</td><td>Fix the 1-meeting-from-6,080 failure</td></tr>
+    <tr><td>Launch "Checking In" re-engagement for Circle Back contacts</td><td>Harvest warm leads already in pipeline</td></tr>
+    <tr><td>Launch seasonal "Winter is Coming" campaign (for Oct-Nov)</td><td>Time-triggered high-urgency outreach</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="phase-header">
+  <span class="phase-badge">4</span>
+  <span class="phase-title">Advanced RLHF</span>
+  <span class="phase-timing">Week 9-12</span>
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Impact</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Implement voice drift detection cron job</td><td>Ensure AI voice stays aligned with sender</td></tr>
+    <tr><td>Build persona modifier auto-adjustment pipeline</td><td>Per-audience optimization</td></tr>
+    <tr><td>Add approval rate tracking to dashboard overview</td><td>Visibility into RLHF loop health</td></tr>
+    <tr><td>Implement dynamic quality score thresholds</td><td>Auto-tighten quality as rejection data accumulates</td></tr>
+    <tr><td>Launch 3 new vertical tests (ski resorts, rooftop bars, wedding venues)</td><td>Expand addressable market</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Success Metrics</h3>
+
+<p>Current Amplemarket performance vs. targets for the new system:</p>
+
+<div class="stat-grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+  <div class="stat-card alert">
+    <div class="number" style="font-size:1.3rem">0.8%</div>
+    <div class="label">Interested Reply Rate (Current)</div>
+    <div class="metric-compare" style="justify-content:center;margin-top:8px">
+      <span class="metric-current">0.8%</span>
+      <span class="metric-arrow">&rarr;</span>
+      <span class="metric-target">2.0% (Mo 1)</span>
+      <span class="metric-arrow">&rarr;</span>
+      <span class="metric-target">3.5% (Mo 3)</span>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="number" style="font-size:1.3rem">N/A</div>
+    <div class="label">Approval Rate (Current)</div>
+    <div class="metric-compare" style="justify-content:center;margin-top:8px">
+      <span class="metric-current">N/A</span>
+      <span class="metric-arrow">&rarr;</span>
+      <span class="metric-target">70% (Mo 1)</span>
+      <span class="metric-arrow">&rarr;</span>
+      <span class="metric-target">85% (Mo 3)</span>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="number" style="font-size:1.3rem">N/A</div>
+    <div class="label">Avg Quality Score (Current)</div>
+    <div class="metric-compare" style="justify-content:center;margin-top:8px">
+      <span class="metric-current">N/A</span>
+      <span class="metric-arrow">&rarr;</span>
+      <span class="metric-target">0.75 (Mo 1)</span>
+      <span class="metric-arrow">&rarr;</span>
+      <span class="metric-target">0.82 (Mo 3)</span>
+    </div>
+  </div>
+  <div class="stat-card alert">
+    <div class="number" style="font-size:1.3rem">2.7%</div>
+    <div class="label">Bounce Rate (Current)</div>
+    <div class="metric-compare" style="justify-content:center;margin-top:8px">
+      <span class="metric-current">2.7% (up to 14%)</span>
+      <span class="metric-arrow">&rarr;</span>
+      <span class="metric-target">&lt;2% (Mo 1)</span>
+      <span class="metric-arrow">&rarr;</span>
+      <span class="metric-target">&lt;1.5% (Mo 3)</span>
+    </div>
+  </div>
+  <div class="stat-card alert">
+    <div class="number" style="font-size:1.3rem">8%</div>
+    <div class="label">Spam Rate Peak (Current)</div>
+    <div class="metric-compare" style="justify-content:center;margin-top:8px">
+      <span class="metric-current">8% (Georgia)</span>
+      <span class="metric-arrow">&rarr;</span>
+      <span class="metric-target">&lt;1% (Mo 1)</span>
+      <span class="metric-arrow">&rarr;</span>
+      <span class="metric-target">&lt;0.5% (Mo 3)</span>
+    </div>
+  </div>
+  <div class="stat-card alert">
+    <div class="number" style="font-size:1.3rem">0.09</div>
+    <div class="label">Meetings / 1,000 Contacts</div>
+    <div class="metric-compare" style="justify-content:center;margin-top:8px">
+      <span class="metric-current">0.09</span>
+      <span class="metric-arrow">&rarr;</span>
+      <span class="metric-target">1.0 (Mo 1)</span>
+      <span class="metric-arrow">&rarr;</span>
+      <span class="metric-target">3.0 (Mo 3)</span>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="number" style="font-size:1.3rem">0</div>
+    <div class="label">AI Sequences / Week</div>
+    <div class="metric-compare" style="justify-content:center;margin-top:8px">
+      <span class="metric-current">0 (manual)</span>
+      <span class="metric-arrow">&rarr;</span>
+      <span class="metric-target">50 (Mo 1)</span>
+      <span class="metric-arrow">&rarr;</span>
+      <span class="metric-target">200 (Mo 3)</span>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="number" style="font-size:1.3rem">Days</div>
+    <div class="label">Campaign to First Send</div>
+    <div class="metric-compare" style="justify-content:center;margin-top:8px">
+      <span class="metric-current">Days (manual)</span>
+      <span class="metric-arrow">&rarr;</span>
+      <span class="metric-target">&lt;24h (Mo 1)</span>
+      <span class="metric-arrow">&rarr;</span>
+      <span class="metric-target">&lt;4h (Mo 3)</span>
+    </div>
+  </div>
+</div>
+
+<div class="callout callout-success" style="margin-top:32px">
+  <strong>The bottom line:</strong> The existing RLHF architecture is strong. The primary gaps are in closing feedback loops (rejection feedback, step-level tracking, angle performance data) and expanding the system's ability to self-correct. The 12-week roadmap moves from quick copy fixes to a fully closed-loop AI outreach system that gets measurably better every week.
+</div>
+
+<!-- Footer -->
+<div style="margin-top:60px;padding-top:20px;border-top:1px solid #e8e4de;color:#9a9694;font-size:0.8rem">
+  <p>Outmore Living &middot; Sequence Improvement Plan &middot; March 2026</p>
+  <p>Based on analysis of Amplemarket performance data (Aug 2024 - Mar 2026) and the OUTMORE Outreach codebase</p>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>
